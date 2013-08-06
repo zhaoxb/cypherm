@@ -1,0 +1,14 @@
+# a comment - this is ignored
+# no .a files
+*.a
+# but to track lib.s, even though you're ignoring .a files above
+!lib.a
+# no .o files
+*.o
+# no temp files
+*~
+# only ignore the root /TODO file, not subdir/TODO
+/TODO
+/todo
+# ignore all the files in the build dir
+build/
