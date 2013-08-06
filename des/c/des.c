@@ -1,17 +1,17 @@
-//功能：实现DES及3DES加解密的算法
-//作者：XXX
-//日期：2008-9-23
+// function: implement the des and 3des algorithm
+// author: anonymous
+// date：2008-9-23
  
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "des.h"
  
-//函数声明
+// function declaration
 int Do_DES(char* strSrc, char* strKey, char* strDest, char flag);
 int Do_3DES(char* strSrc, char* strKey, char* strDest, char flag);
  
-//主函数
+// main
 int main(int argc, char** argv)
 {
     char src16[16+1],key16[16+1],key48[48+1],dest16[16+1];
@@ -86,7 +86,7 @@ int main(int argc, char** argv)
    return 0;  
 }
  
-//做DES加密或解密运算
+// encryption and decryption algorithm implementation of des
 int Do_DES(char* strSrc, char* strKey, char* strDest, char flag)
 {
    int i,j;
@@ -160,7 +160,7 @@ int Do_DES(char* strSrc, char* strKey, char* strDest, char flag)
   return 0;
 }
  
-//做3DES加密或解密运算
+// encryption and decryption algorithm implementation for 3des
 int Do_3DES(char* strSrc, char* strKey, char* strDest, char flag)
 { 
    unsigned char strBCDKey[32+1],strByteKey[16+1];
@@ -211,7 +211,7 @@ int Do_3DES(char* strSrc, char* strKey, char* strDest, char flag)
   return 0;
 }
  
-//对输入的字节串作BCD编码扩展
+// BDC encoding for input string
 int ByteToBCD(unsigned char* bytes, int count,unsigned char* strBCD)
 {
    unsigned char cTmp;
@@ -228,7 +228,7 @@ int ByteToBCD(unsigned char* bytes, int count,unsigned char* strBCD)
   return (count*2); 
 }
  
-//把输入的BCD编码串还原成字节串
+// restore the input BDC to byte string
 int BCDToByte(unsigned char* strBCD, int count, unsigned char* bytes)
 {
    unsigned char cTmp;
@@ -257,7 +257,7 @@ int BCDToByte(unsigned char* strBCD, int count, unsigned char* bytes)
   return (count/2);
 }
  
-//把字节串变成比特串
+// convert byte string to bit stream
 int ByteToBit(unsigned char* bytes, int count, unsigned char* strBit)
 {
    unsigned char cTmp;
@@ -276,7 +276,7 @@ int ByteToBit(unsigned char* bytes, int count, unsigned char* strBit)
   return (count*8); 
 }
  
-//把比特串变成字节串
+// convert bitstream to byte string
 int BitToByte(unsigned char* strBit, int count, unsigned char* bytes)
 {
     unsigned char cTmp;
@@ -295,7 +295,7 @@ int BitToByte(unsigned char* strBit, int count, unsigned char* bytes)
    return (count/8);
 }
  
-//做异或操作
+// xor operation bit-wise
 int Do_XOR(unsigned char* strSrc, int count, unsigned char* strDest)
 {
     int i;
@@ -308,8 +308,8 @@ int Do_XOR(unsigned char* strSrc, int count, unsigned char* strDest)
  
     return 0;
 }
- 
-//des算法PC-1变换，把64比特的密钥K变换成56比特
+
+// PC-1 translation, translate 64-bit key K to 56-bit
 int Des_PC_1(unsigned char* strIn, unsigned char* strOut)
 {
     int i;
@@ -320,7 +320,7 @@ int Des_PC_1(unsigned char* strIn, unsigned char* strOut)
     return 56; 
 }
  
-//des算法PC-2变换，把56比特变换成48比特
+// PC-2 translation, translate 56-bit to 48-bit KEY
 int Des_PC_2(unsigned char* strIn, unsigned char* strOut)
 {
     int i;
@@ -331,7 +331,7 @@ int Des_PC_2(unsigned char* strIn, unsigned char* strOut)
     return 48;
 }
  
-//des算法的循环左移位运算
+// cyclic left shift computation of des algorithm
 int Des_LS(unsigned char* strIn, int count, unsigned char* strOut)
 {
     int i;
@@ -342,7 +342,7 @@ int Des_LS(unsigned char* strIn, int count, unsigned char* strOut)
     return 28; 
 }
  
-//des算法中通过父密钥产生16个48比特位的子密钥
+// 16 48-bit SUB KEY generation from root KEY
 int Des_GenSubKey(unsigned char* strKey, unsigned char strSubKey[16][48+1])
 {
     unsigned char tmp[56+1],C0[28+1],D0[28+1],Cx[28+1],Dx[28+1];
@@ -372,8 +372,8 @@ int Des_GenSubKey(unsigned char* strKey, unsigned char strSubKey[16][48+1])
  
    return 0;
 }
- 
-//des算法IP置换
+
+// IP substitution of DES
 int Des_IP(unsigned char* strIn, unsigned char* strOut)
 {
     int i;
@@ -384,7 +384,7 @@ int Des_IP(unsigned char* strIn, unsigned char* strOut)
     return 64;
 }
  
-//des算法IP-1置换
+// IP-1 substitution of DES
 int Des_IP_1(unsigned char* strIn, unsigned char* strOut)
 {
     int i;
@@ -395,7 +395,7 @@ int Des_IP_1(unsigned char* strIn, unsigned char* strOut)
     return 64;
 }
  
-//des算法e变换，将32比特变成48比特
+// E trans. from 32-bit to 48-bit
 int Des_E(unsigned char* strIn, unsigned char* strOut)
 {
     int i;
@@ -406,7 +406,7 @@ int Des_E(unsigned char* strIn, unsigned char* strOut)
     return 48;
 }
  
-//des算法P变换
+// P translation
 int Des_P(unsigned char* strIn, unsigned char* strOut)
 {
     int i;
@@ -417,7 +417,7 @@ int Des_P(unsigned char* strIn, unsigned char* strOut)
     return 32;
 }
  
-//des算法S盒变换
+// S-Box translation
 int Des_S_Box(unsigned char* strIn, int nSBox, unsigned char* strOut)
 {
     int x,y,i,nValue;
@@ -440,7 +440,7 @@ int Des_S_Box(unsigned char* strIn, int nSBox, unsigned char* strOut)
    return 4;
 }
  
-//des算法F函数，对Ri-1和Ki进行运算
+// F functions, for Ri-1 and Ki
 int Des_F(unsigned char* strR, unsigned char* strK, unsigned char* strOut)
 {
     int i,j,k;
